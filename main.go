@@ -26,10 +26,10 @@ func main() {
 	blogService := services.NewBlogService(*blogRepository)
 	blogHandler := handler.NewBlogHandler(*blogService)
 	// blog api
-	router.HandleFunc("/createBlog", blogHandler.CreateBlogHandler)
-	router.HandleFunc("/getBlogById/{id:[0-9]+}", blogHandler.GetBlogHandlerByID)
-	router.HandleFunc("/updateBlog/{id:[0-9]+}", blogHandler.UpdateBlogHandler)
-	router.HandleFunc("/deleteBlog/{id:[0-9]+}", blogHandler.DeleteBlogHandler)
+	router.HandleFunc("/createBlog", blogHandler.CreateBlogHandler).Methods(http.MethodPost)
+	router.HandleFunc("/getBlogById/{id:[0-9]+}", blogHandler.GetBlogHandlerByID).Methods(http.MethodGet)
+	router.HandleFunc("/updateBlog/{id:[0-9]+}", blogHandler.UpdateBlogHandler).Methods(http.MethodPut)
+	router.HandleFunc("/deleteBlog/{id:[0-9]+}", blogHandler.DeleteBlogHandler).Methods(http.MethodDelete)
 
 	http.ListenAndServe(":8080", router)
 }

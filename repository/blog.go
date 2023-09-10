@@ -42,7 +42,7 @@ func (rp BlogRepository) GetBlogByID(id int) (*models.BlogGeeks, error) {
 `
 	row := rp.db.QueryRow(query, id)
 
-	var blogGeeks *models.BlogGeeks
+	var blogGeeks models.BlogGeeks
 	err := row.Scan(
 		&blogGeeks.ID,
 		&blogGeeks.Title,
@@ -54,7 +54,7 @@ func (rp BlogRepository) GetBlogByID(id int) (*models.BlogGeeks, error) {
 	if err != nil {
 		return nil, err
 	}
-	return blogGeeks, nil
+	return &blogGeeks, nil
 }
 
 func (rp BlogRepository) DeleteBlogById(id int) error {
@@ -68,7 +68,7 @@ func (rp BlogRepository) DeleteBlogById(id int) error {
 
 func (rp BlogRepository) UpdateBlog(blogGeeks *models.BlogGeeks) error {
 	query := `
-        UPDATE blog_geeks
+        UPDATE thug_geeks
         SET title = $1, image = $2, description_short = $3, description_long = $4, tag = $5, like_count = $6
         WHERE id = $7
     `
